@@ -2,6 +2,7 @@
 import React from 'react';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { Gender, FragranceType } from './FragranceFinderQuiz';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 
 interface QuestionThreeProps {
   gender: Gender;
@@ -62,8 +63,8 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
       </div>
 
       {/* Content */}
-      <div className="flex-1 flex items-center justify-center">
-        <div className="max-w-4xl w-full text-center space-y-12">
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <div className="max-w-6xl w-full text-center space-y-12">
           <div className="space-y-4">
             <p className="text-sm tracking-wider text-gray-500 uppercase">
               QUESTION 03
@@ -73,29 +74,73 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto group">
+          {/* Mobile Carousel */}
+          <div className="md:hidden">
+            <Carousel className="w-full max-w-sm mx-auto">
+              <CarouselContent>
+                {options.map((option) => (
+                  <CarouselItem key={option.type}>
+                    <div
+                      onClick={() => onTypeSelect(option.type)}
+                      className={`cursor-pointer transition-all duration-500 transform ${
+                        selectedType === option.type 
+                          ? 'scale-105 brightness-110' 
+                          : selectedType 
+                            ? 'opacity-40 scale-95' 
+                            : 'hover:scale-102'
+                      }`}
+                    >
+                      <div className={`bg-white rounded-2xl p-6 border-2 transition-all duration-500 shadow-lg ${
+                        selectedType === option.type 
+                          ? 'border-black shadow-2xl' 
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}>
+                        <div className="aspect-square mb-6 rounded-xl overflow-hidden">
+                          <img 
+                            src={option.image} 
+                            alt={option.type}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <h3 className="text-lg font-medium tracking-wide text-gray-800 uppercase">
+                          {option.type}
+                        </h3>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden md:flex justify-center gap-8 max-w-4xl mx-auto group">
             {options.map((option) => (
               <div
                 key={option.type}
                 onClick={() => onTypeSelect(option.type)}
-                className={`cursor-pointer transition-all duration-300 ${
-                  selectedType === option.type ? 'scale-105' : 'group-hover:opacity-30 hover:!opacity-100 hover:scale-102'
+                className={`cursor-pointer transition-all duration-500 transform ${
+                  selectedType === option.type 
+                    ? 'scale-105 brightness-110' 
+                    : selectedType 
+                      ? 'opacity-40 scale-95' 
+                      : 'group-hover:opacity-30 hover:!opacity-100 hover:scale-102'
                 }`}
               >
-                <div className={`bg-white rounded-lg p-6 border-2 transition-all duration-300 ${
+                <div className={`bg-white rounded-2xl p-6 border-2 transition-all duration-500 shadow-lg ${
                   selectedType === option.type 
-                    ? 'border-black shadow-xl' 
-                    : 'border-gray-200 hover:border-gray-300 hover:bg-white/90 hover:backdrop-blur-sm'
+                    ? 'border-black shadow-2xl' 
+                    : 'border-gray-200 hover:border-gray-300'
                 }`}>
-                  <div className="aspect-square mb-6 rounded-lg overflow-hidden">
+                  <div className="aspect-square mb-6 rounded-xl overflow-hidden">
                     <img 
                       src={option.image} 
                       alt={option.type}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                      className="w-full h-full object-cover"
                     />
                   </div>
-                  <h3 className="text-lg font-light tracking-wide text-gray-800">
-                    {option.type.toUpperCase()}
+                  <h3 className="text-lg font-medium tracking-wide text-gray-800 uppercase">
+                    {option.type}
                   </h3>
                 </div>
               </div>
@@ -105,7 +150,7 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
           {selectedType && (
             <button
               onClick={onConfirm}
-              className="bg-black text-white px-12 py-3 rounded-lg font-light tracking-wider hover:bg-gray-800 transition-colors duration-300 animate-fade-in"
+              className="bg-black text-white px-12 py-3 rounded-md font-light tracking-wider hover:bg-gray-800 transition-colors duration-300 animate-fade-in"
             >
               CONFIRM
             </button>
