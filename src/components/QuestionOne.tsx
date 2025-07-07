@@ -43,17 +43,6 @@ const QuestionOne = ({ selectedGender, onGenderSelect, onConfirm }: QuestionOneP
           >
             <span className="text-lg font-light tracking-wide">FOR HER</span>
           </button>
-
-          <button
-            onClick={() => onGenderSelect('FOR ALL')}
-            className={`w-full max-w-md mx-auto block py-6 px-8 rounded-full border-2 transition-all duration-300 ${
-              selectedGender === 'FOR ALL'
-                ? 'bg-black text-white border-black'
-                : 'bg-white text-black border-gray-300 hover:border-gray-400'
-            }`}
-          >
-            <span className="text-lg font-light tracking-wide">FOR ALL</span>
-          </button>
         </div>
 
         {selectedGender && (
