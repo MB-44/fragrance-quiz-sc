@@ -49,6 +49,19 @@ const FragranceFinderQuiz = () => {
     setCurrentStep(prev => prev + 1);
   };
 
+  const goBack = () => {
+    setCurrentStep(prev => prev - 1);
+  };
+
+  const restart = () => {
+    setCurrentStep(1);
+    setQuizState({
+      gender: null,
+      moment: null,
+      type: null
+    });
+  };
+
   if (isLoading) {
     return <LoadingScreen />;
   }
@@ -60,6 +73,7 @@ const FragranceFinderQuiz = () => {
           selectedGender={quizState.gender}
           onGenderSelect={handleGenderSelect}
           onConfirm={nextStep}
+          onRestart={restart}
         />
       )}
       {currentStep === 2 && (
@@ -68,6 +82,8 @@ const FragranceFinderQuiz = () => {
           selectedMoment={quizState.moment}
           onMomentSelect={handleMomentSelect}
           onConfirm={nextStep}
+          onBack={goBack}
+          onRestart={restart}
         />
       )}
       {currentStep === 3 && (
@@ -76,6 +92,8 @@ const FragranceFinderQuiz = () => {
           selectedType={quizState.type}
           onTypeSelect={handleTypeSelect}
           onConfirm={() => console.log('Quiz completed:', quizState)}
+          onBack={goBack}
+          onRestart={restart}
         />
       )}
     </div>
