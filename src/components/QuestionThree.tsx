@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { Gender, FragranceType } from './FragranceFinderQuiz';
@@ -48,9 +47,28 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
     return selectedOption?.image || options[0].image;
   };
 
+  const getCollectionUrl = () => {
+    if (gender === 'FOR HIM') {
+      if (selectedType === 'Beachy Fresh') {
+        return 'https://lk.spaceylon.com/collections/beachy-fresh-him';
+      } else if (selectedType === 'Woody & Masculine') {
+        return 'https://lk.spaceylon.com/collections/woody-masculine';
+      }
+    }
+    // Return a default URL or handle other cases as needed
+    return '#';
+  };
+
   const handleConfirm = () => {
     setShowResult(true);
     onConfirm();
+  };
+
+  const handleDiscoverCollection = () => {
+    const url = getCollectionUrl();
+    if (url !== '#') {
+      window.open(url, '_blank');
+    }
   };
 
   const options = getOptions();
@@ -100,7 +118,10 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
             </div>
 
             {/* Discover Collection Button */}
-            <button className="bg-black text-white px-12 py-4 rounded-md font-light tracking-wider hover:bg-gray-800 transition-colors duration-300 text-lg">
+            <button 
+              onClick={handleDiscoverCollection}
+              className="bg-black text-white px-12 py-4 rounded-md font-light tracking-wider hover:bg-gray-800 transition-colors duration-300 text-lg"
+            >
               DISCOVER COLLECTION
             </button>
           </div>
