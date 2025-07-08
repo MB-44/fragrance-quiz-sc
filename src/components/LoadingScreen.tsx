@@ -15,6 +15,7 @@ const LoadingScreen = () => {
         <h1 className="text-3xl font-light tracking-wide text-gray-800 mb-8">
           FRAGRANCE FINDER
         </h1>
+        <p className='text-l font-light tracking-wide text-gray-800 mb-8'>A unique journey to discover your  fragrance.</p>
         <div className="text-lg text-gray-600 animate-pulse">
           Your experience is loading...
         </div>
