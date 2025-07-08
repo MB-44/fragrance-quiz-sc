@@ -3,11 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Font - Replace 'YourFontName' with your actual font file name */
+/* Custom Font - GOUDOSI from public/fonts/ */
 @font-face {
-  font-family: 'YourCustomFont';
-  src: url('/font/your-font-file.woff2') format('woff2'),
-       url('/font/your-font-file.woff') format('woff');
+  font-family: 'GOUDOSI';
+  src: url('/fonts/GOUDOSI.TTF') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -104,7 +103,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'YourCustomFont', system-ui, -apple-system, sans-serif;
+    font-family: 'GOUDOSI', system-ui, -apple-system, sans-serif;
   }
 }
 
