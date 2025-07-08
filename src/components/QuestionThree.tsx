@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { Gender, FragranceType } from './FragranceFinderQuiz';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
@@ -14,6 +14,8 @@ interface QuestionThreeProps {
 }
 
 const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, onRestart }: QuestionThreeProps) => {
+  const [showResult, setShowResult] = useState(false);
+
   const getOptions = (): Array<{ type: FragranceType; image: string }> => {
     if (gender === 'FOR HER') {
       return [
@@ -40,7 +42,72 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
     }
   };
 
+  const getResultImage = () => {
+    const options = getOptions();
+    const selectedOption = options.find(option => option.type === selectedType);
+    return selectedOption?.image || options[0].image;
+  };
+
+  const handleConfirm = () => {
+    setShowResult(true);
+    onConfirm();
+  };
+
   const options = getOptions();
+
+  if (showResult && selectedType) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col p-8 animate-fade-in">
+        {/* Navigation */}
+        <div className="flex items-center space-x-6 mb-8">
+          <button
+            onClick={onBack}
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors"
+          >
+            <ArrowLeft size={20} />
+            <span className="text-sm uppercase tracking-wide">Back</span>
+          </button>
+          <button
+            onClick={onRestart}
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors"
+          >
+            <RotateCcw size={20} />
+            <span className="text-sm uppercase tracking-wide">Restart</span>
+          </button>
+        </div>
+
+        {/* Result Content */}
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <div className="max-w-2xl w-full text-center space-y-8">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-light text-gray-800">
+                Perfect Match Found!
+              </h2>
+              <p className="text-lg text-gray-600">
+                Based on your preferences: {selectedType}
+              </p>
+            </div>
+
+            {/* Result Image */}
+            <div className="w-full max-w-md mx-auto">
+              <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
+                <img 
+                  src={getResultImage()} 
+                  alt={selectedType}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Discover Collection Button */}
+            <button className="bg-black text-white px-12 py-4 rounded-md font-light tracking-wider hover:bg-gray-800 transition-colors duration-300 text-lg">
+              DISCOVER COLLECTION
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col p-8 animate-fade-in">
@@ -149,7 +216,7 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
 
           {selectedType && (
             <button
-              onClick={onConfirm}
+              onClick={handleConfirm}
               className="bg-black text-white px-12 py-3 rounded-md font-light tracking-wider hover:bg-gray-800 transition-colors duration-300 animate-fade-in"
             >
               CONFIRM
