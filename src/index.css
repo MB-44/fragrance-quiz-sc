@@ -3,10 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Font - GOUDOSI from public/fonts/ */
+/* Custom Font - GOUDOS from public/fonts/ */
 @font-face {
-  font-family: 'GOUDOSI';
-  src: url('/fonts/GOUDOSI.TTF') format('truetype');
+  font-family: 'GOUDOS';
+  src: url('/fonts/GOUDOS.TTF') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -103,7 +103,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'GOUDOSI', system-ui, -apple-system, sans-serif;
+    font-family: 'GOUDOS', system-ui, -apple-system, sans-serif;
   }
 }
 
