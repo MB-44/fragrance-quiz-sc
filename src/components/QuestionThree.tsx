@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { Gender, FragranceType } from './FragranceFinderQuiz';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext
+} from '@/components/ui/carousel';
 
 interface QuestionThreeProps {
   gender: Gender;
@@ -164,31 +170,40 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
 
           {/* Mobile Carousel */}
           <div className="md:hidden">
-            <Carousel className="w-full max-w-sm mx-auto">
+            <Carousel className="relative w-full max-w-sm mx-auto">
               <CarouselContent>
                 {options.map((option) => (
                   <CarouselItem key={option.type}>
                     <div
                       onClick={() => onTypeSelect(option.type)}
                       className={`cursor-pointer transition-all duration-500 transform ${
-                        selectedType === option.type 
-                          ? 'scale-105 brightness-110' 
-                          : selectedType 
-                            ? 'opacity-40 scale-95' 
+                        selectedType === option.type
+                          ? 'scale-105 brightness-110'
+                          : selectedType
+                            ? 'opacity-40 scale-95'
                             : 'hover:scale-102'
                       }`}
                     >
-                      <div className={`bg-white rounded-2xl p-6 border-2 transition-all duration-500 shadow-lg ${
-                        selectedType === option.type 
-                          ? 'border-black shadow-2xl' 
-                          : 'border-gray-200 hover:border-gray-300'
-                      }`}>
-                        <div className="aspect-square mb-6 rounded-xl overflow-hidden">
-                          <img 
-                            src={option.image} 
+                      <div
+                        className={`bg-white rounded-2xl p-6 border-2 transition-all duration-500 shadow-lg ${
+                          selectedType === option.type
+                            ? 'border-black shadow-2xl'
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <div className="aspect-square mb-6 rounded-xl overflow-hidden relative group">
+                          <img
+                            src={option.image}
                             alt={option.type}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                           />
+                          <div
+                            className={`absolute inset-0 flex items-center justify-center text-white text-sm font-medium uppercase bg-black/50 transition-opacity duration-300 group-hover:opacity-100 ${
+                              selectedType === option.type ? 'opacity-100' : 'opacity-0'
+                            }`}
+                          >
+                            {selectedType === option.type ? 'Selected' : 'Select'}
+                          </div>
                         </div>
                         <h3 className="text-lg font-medium tracking-wide text-gray-800 uppercase">
                           {option.type}
@@ -198,6 +213,8 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
                   </CarouselItem>
                 ))}
               </CarouselContent>
+              <CarouselPrevious className="left-0 top-1/2 -translate-y-1/2" />
+              <CarouselNext className="right-0 top-1/2 -translate-y-1/2" />
             </Carousel>
           </div>
 
@@ -208,24 +225,31 @@ const QuestionThree = ({ gender, selectedType, onTypeSelect, onConfirm, onBack, 
                 key={option.type}
                 onClick={() => onTypeSelect(option.type)}
                 className={`cursor-pointer transition-all duration-500 transform ${
-                  selectedType === option.type 
-                    ? 'scale-105 brightness-110' 
-                    : selectedType 
-                      ? 'opacity-40 scale-95' 
+                  selectedType === option.type
+                    ? 'scale-105 brightness-110'
+                    : selectedType
+                      ? 'opacity-40 scale-95'
                       : 'group-hover:opacity-30 hover:!opacity-100 hover:scale-102'
                 }`}
               >
                 <div className={`bg-white rounded-2xl p-6 border-2 transition-all duration-500 shadow-lg ${
-                  selectedType === option.type 
-                    ? 'border-black shadow-2xl' 
+                  selectedType === option.type
+                    ? 'border-black shadow-2xl'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}>
-                  <div className="aspect-square mb-6 rounded-xl overflow-hidden">
-                    <img 
-                      src={option.image} 
+                  <div className="aspect-square mb-6 rounded-xl overflow-hidden relative group">
+                    <img
+                      src={option.image}
                       alt={option.type}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
+                    <div
+                      className={`absolute inset-0 flex items-center justify-center text-white text-sm font-medium uppercase bg-black/50 transition-opacity duration-300 group-hover:opacity-100 ${
+                        selectedType === option.type ? 'opacity-100' : 'opacity-0'
+                      }`}
+                    >
+                      {selectedType === option.type ? 'Selected' : 'Select'}
+                    </div>
                   </div>
                   <h3 className="text-lg font-medium tracking-wide text-gray-800 uppercase">
                     {option.type}
